@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo</title>
+    <link rel="stylesheet" href="Todostyle.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="Todojs.js"></script>
+</head>
+<body>
+<h1>Todo</h1>
+
+<div>
+    <h3>Tehtävälista</h3>
+    <table id="tehtavat">
+
+    </table>
+    <br>
+    <button onclick="hae()">Hae tehtävät</button>
+</div>
+<div id="lisays">
+    <form>
+        Uusi tehtävä:<br>
+        <input type="text" name="task" id="uusi"><br>
+        <br>
+        <button onclick="lisaa()">Lisää</button>
+    </form>
+</div>
+</body>
+
+</html>
