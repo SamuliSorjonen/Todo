@@ -8,7 +8,7 @@
     <script src="Todojs.js"></script>
 </head>
 <body>
-<h1>Todo</h1>
+<h1>TODO</h1>
 
 <div>
     <h3>Tehtävälista</h3>
@@ -18,10 +18,12 @@
     <br>
     <button onclick="hae()">Hae tehtävät</button>
 </div>
+<br>
 <div id="lisays">
-    <form>
-        Uusi tehtävä:<br>
-        <input type="text" name="task" id="uusi"><br>
+    <form type="submit">
+        <h4>Uusi tehtävä:</h4>
+
+        <input type="text" id="uusi"><br>
         <br>
         <button onclick="lisaa()">Lisää</button>
     </form>

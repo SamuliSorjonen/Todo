@@ -1,6 +1,15 @@
 div {width: 300px;
-border: 15px solid green;
+border: 15px solid darkolivegreen;
 padding: 20px;
-margin: 20px;}
+//margin: 20px;
+background-color: ghostwhite;
+margin-right: auto;
+margin-left: auto}
 
-h1 {color: red}
+#lisays {align-items: center; text-align: center; margin-right: auto; margin-left: auto}
+
+h1 {color: black; align-content: center; text-align: center}
+h3 {text-align: center}
+h4 {text-align: center}
+
+body{background-image:url("mistymountains.jpg"); background-size: cover}

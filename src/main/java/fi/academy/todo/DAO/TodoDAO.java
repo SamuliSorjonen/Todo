@@ -21,7 +21,7 @@ public class TodoDAO implements TodonDAO {
 
     @Override
     public List<Tehtava> haeKaikki() {
-        String sql = "SELECT * FROM todot";
+        String sql = "SELECT * FROM todot ORDER BY id ASC";
         List<Tehtava> haetut = new ArrayList<>();
         try (PreparedStatement pstmt = con.prepareStatement(sql)) {
             for (ResultSet rs = pstmt.executeQuery(); rs.next(); ) {
@@ -36,28 +36,48 @@ public class TodoDAO implements TodonDAO {
 
     @Override
     public int lisaa(Tehtava uusitehtava) {
+        int avain = -1;
         String tehtava = uusitehtava.getTehtava();
         String sql = "INSERT INTO todot (tehtava) VALUES (?)";
 
-        try (PreparedStatement pstm = con.prepareStatement(sql)) {
+        try (PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             pstm.setString(1, tehtava);
             pstm.execute();
+            ResultSet avaimet = pstm.getGeneratedKeys();
+            while (avaimet.next()) {
+                avain = avaimet.getInt(1);
+
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return 0;
+        return avain;
     }
 
     @Override
-    public void poista(int id) {
+    public Tehtava poista(int id) {
+        Tehtava t = new Tehtava();
+        String sel = "SELECT * FROM todot WHERE id = ?";
 
+        try (PreparedStatement prs = con.prepareStatement(sel)) {
+            prs.setInt(1, id);
+            prs.execute();
+            ResultSet rs = prs.executeQuery();
+            while (rs.next()) {
+                t.setId(rs.getInt("id"));
+                t.setTehtava(rs.getString("tehtava"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String sql = "DELETE FROM todot WHERE(id=?)";
         try (PreparedStatement pstm = con.prepareStatement(sql)) {
             pstm.setInt(1, id);
             pstm.execute();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
+        return t;
 
     }
 }

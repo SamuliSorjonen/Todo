@@ -1,4 +1,5 @@
 var toimet = [];
+hae();
 
 function hae(){
     axios.get("/api/todot")
@@ -24,7 +25,8 @@ function poista(t) {
     }
 
 
-function lisaa (){
+function lisaa (e){
+    //e.preventDefault();
     var uusitehtava = document.getElementById("uusi").value;
     axios.post('/api/todot', {
         tehtava: uusitehtava
@@ -35,7 +37,7 @@ function lisaa (){
         .catch(function (error) {
             console.log(error)
         }).finally(function(){
-        hae()
+        hae();
     });
 
 }

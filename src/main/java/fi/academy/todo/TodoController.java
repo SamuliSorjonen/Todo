@@ -27,14 +27,25 @@ private TodonDAO dao;
     }
 
     @PostMapping("")
-    public void lisaa(@RequestBody Tehtava uusi) {
+    public ResponseEntity<?> lisaa(@RequestBody Tehtava uusi) {
         System.out.println("****** Luodaan uutta: " + uusi);
-        dao.lisaa(uusi);
+        int id = dao.lisaa(uusi);
         System.out.println("****** Luotu uusi: " + uusi);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+        return ResponseEntity.created(location).body(uusi);
     }
 
     @DeleteMapping("/{id}")
-    public void poista(@PathVariable int id) {
-        dao.poista(id);
+    public ResponseEntity<?> poista(@PathVariable int id) {
+        Tehtava poistettu = dao.poista(id);
+        if (poistettu.getId() != 0)
+            return ResponseEntity.ok(poistettu.getId());
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body("Poistaminen ei onnistunut");
     }
 }

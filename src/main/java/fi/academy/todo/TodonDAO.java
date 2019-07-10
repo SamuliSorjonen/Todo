@@ -7,6 +7,6 @@ public interface TodonDAO {
 
     List<Tehtava> haeKaikki();
     int lisaa(Tehtava tehtava);
-    void poista(int id);
+    Tehtava poista(int id);
 }
 
