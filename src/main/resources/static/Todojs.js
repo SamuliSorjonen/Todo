@@ -10,34 +10,29 @@ function hae(){
         })
         .catch(function (error) {
             console.log(error);
-        })
-        .finally(function () {
-
         });
 }
 
 function poista(t) {
     axios.delete('/api/todot/'+t)
-        .finally(function(){
-        hae()
+        .then(function(response){
+            console.log(response);
+            hae();
     });
-
     }
 
 
 function lisaa (e){
-    //e.preventDefault();
     var uusitehtava = document.getElementById("uusi").value;
     axios.post('/api/todot', {
         tehtava: uusitehtava
     })
         .then(function (response) {
             console.log(response);
+            hae();
         })
         .catch(function (error) {
             console.log(error)
-        }).finally(function(){
-        hae();
     });
 
 }
